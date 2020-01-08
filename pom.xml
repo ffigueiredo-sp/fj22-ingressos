@@ -149,5 +149,10 @@
             </plugin>
         </plugins>
     </build>
-
+    <developers>
+         <developer>
+             <name>Felipe Figueiredo</name>
+             <email>felipe.adans89@gmail.com</email>
+         </developer>
+     </developers>
 </project>

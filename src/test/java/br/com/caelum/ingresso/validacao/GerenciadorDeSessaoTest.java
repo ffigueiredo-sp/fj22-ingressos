@@ -76,4 +76,17 @@ public class GerenciadorDeSessaoTest {
 		Sessao sessaoQueTerminaAmanha = new Sessao(LocalTime.parse("23:00:00"), rogueOne, sala3D);
 		Assert.assertFalse(gerenciador.cabe(sessaoQueTerminaAmanha));
 	}
+	
+	@Test
+	public void oPrecoDaSessaoDeveSerIgualASomaDoPrecoDaSalaMaisOPrecoDoFilme() {
+		
+		Sala sala = new Sala("Eldorado - IMax", new BigDecimal("22.5"));
+		Filme filme = new Filme("Rougue One", Duration.ofMinutes(120),"SCI-FI", new BigDecimal("12.0"));
+		
+		BigDecimal somaDosPreosDaSalaEFilme = sala.getPreco().add(filme.getPreco());
+		
+		Sessao sessao = new Sessao(LocalTime.parse("10:00:00"), filme, sala);
+		
+		Assert.assertEquals(somaDosPreosDaSalaEFilme, sessao.getPreco());
+	}
 }

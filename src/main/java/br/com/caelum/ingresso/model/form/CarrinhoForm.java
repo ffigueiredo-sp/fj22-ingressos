@@ -32,5 +32,6 @@ public class CarrinhoForm {
 			
 			return new Ingresso(sessao, tipoDeIngresso, lugar);
 		}).collect(Collectors.toList());
-	}
+	}	
+	
 }

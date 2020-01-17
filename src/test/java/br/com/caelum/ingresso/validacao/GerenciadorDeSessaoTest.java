@@ -14,6 +14,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.caelum.ingresso.model.Carrinho;
 import br.com.caelum.ingresso.model.Filme;
 import br.com.caelum.ingresso.model.Ingresso;
 import br.com.caelum.ingresso.model.Lugar;
@@ -118,5 +119,30 @@ public class GerenciadorDeSessaoTest {
 		Assert.assertFalse(sessao.isDisponivel(a1));
 		Assert.assertTrue(sessao.isDisponivel(a2));
 		Assert.assertTrue(sessao.isDisponivel(a3));
+	}
+	
+	@Test
+	public void garanteQueOLugarA1EstaOcupadoENoCarrinho() {
+		
+		Lugar a1 = new Lugar("A",1);
+				
+		Filme filme = new Filme("Rougue One", Duration.ofMinutes(120),"SCI-FI", new BigDecimal("12.0"));
+		
+		Sala eldorado7 = new Sala("Eldorado 7", new BigDecimal("8.5"));
+		
+		Sessao sessao = new Sessao(LocalTime.parse("10:00:00"), filme, eldorado7);
+		
+		Ingresso ingresso = new Ingresso(sessao,  TipoDeIngresso.INTEIRO, a1);
+		
+		Set<Ingresso> ingressos = Stream.of(ingresso).collect(Collectors.toSet());
+		
+		sessao.setIngressos(ingressos);		
+				
+		Carrinho carrinho = new Carrinho();
+		carrinho.add(ingresso);
+		
+		Assert.assertNotNull(carrinho);		
+		
+		Assert.assertEquals(carrinho.getTotal(), ingresso.getPreco());
 	}
 }
